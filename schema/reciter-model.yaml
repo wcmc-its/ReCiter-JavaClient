@@ -1,0 +1,226 @@
+swagger: "2.0"
+info:
+  description: "ReCiter API"
+  version: "1.0.0"
+  title: "ReCiter API"
+  termsOfService: "https://github.com/wcmc-its/ReCiter"
+  contact:
+    email: "jie265@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "wcmc-its-reciter-service.us-west-2.elasticbeanstalk.com"
+basePath: "/v1"
+tags:
+- name: "identity"
+  description: "Everything about your Identity"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "http"
+paths:
+  /identity:
+    post:
+      tags:
+      - "identity"
+      summary: "Add a new Identity"
+      description: ""
+      operationId: "addIdentity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Identity object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Identity"
+      responses:
+        405:
+          description: "Invalid input"
+    put:
+      tags:
+      - "identity"
+      summary: "Update an existing Identity"
+      description: ""
+      operationId: "updateIdentity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Identity object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Identity"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Identity not found"
+        405:
+          description: "Validation exception"
+  /identity/{uid}:
+    get:
+      tags:
+      - "identity"
+      summary: "Find Identity by ID"
+      description: "Returns a single Identity"
+      operationId: "getIdentityyId"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "uid"
+        in: "path"
+        description: "ID of pet to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Identity"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+    delete:
+      tags:
+      - "identity"
+      summary: "Deletes an Identity"
+      description: ""
+      operationId: "deleteIdentity"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "uid"
+        in: "path"
+        description: "Identity id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Identity not found"
+definitions:
+  AuthorName:
+    type: "object"
+    properties:
+      firstName:
+        type: "string"
+      firstInitial:
+        type: "string"
+      middleName:
+        type: "string"
+      middleInitial:
+        type: "string"
+      lastName:
+        type: "string"
+  KnownRelationship:
+    type: "object"
+    properties:
+      uid:
+        type: "string"
+      name:
+        $ref: '#/definitions/AuthorName'
+      type:
+        type: "string"
+  Education:
+    type: "object"
+    properties:
+      bachelorYear:
+        type: "integer"
+        format: "int32"
+      doctoralYear:
+        type: "integer"
+        format: "int32"
+  PubMedAlias:
+    type: "object"
+    properties:
+      pmid:
+        type: "integer"
+        format: "int64"
+      authorName:
+        $ref: '#/definitions/AuthorName'
+  Identity:
+    type: "object"
+    properties:
+      uid:
+        type: "string"
+      primaryName:
+        $ref: '#/definitions/AuthorName'
+      alternateNames:
+        type: "array"
+        items:
+          $ref: '#/definitions/AuthorName'
+      emails:
+        type: "array"
+        items:
+          type: "string"
+      knownRelationships:
+        type: "array"
+        items:
+          $ref: '#/definitions/KnownRelationship'
+      departments:
+        type: "array"
+        items:
+          type: "string"
+      title:
+        type: "string"
+      institutions:
+        type: "array"
+        items:
+          type: "string"
+      degreeYear:
+        $ref: '#/definitions/Education'
+      personTypes:
+        type: "array"
+        items:
+          type: "string"
+      program:
+        type: "string"
+      boardCertifications:
+        type: "array"
+        items:
+          type: "string"
+      citizenship:
+        type: "string"
+      grants:
+        type: "array"
+        items:
+          type: "string"
+      keywords:
+        type: "array"
+        items:
+          type: "string"
+      pubMedAlias:
+        type: "array"
+        items:
+          $ref: '#/definitions/PubMedAlias'
+      dateInitialRun:
+        type: "string"
+        format: "date-time"
+      dateLastRun:
+        type: "string"
+        format: "date-time"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
