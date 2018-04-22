@@ -221,6 +221,178 @@ definitions:
         type: "string"
       message:
         type: "string"
+  AnalysisOutput: 
+    type: "object"
+    properties:
+      uid: 
+        type: "string"
+      dateAdded:
+        type: "string"
+        format: "date-time"
+      dateUpdated:
+        type: "string"
+        format: "date-time"  
+      Accuracy:
+        type:  "object"
+        properties:
+          mode:
+            type: "string"
+          overallAccuracy:
+            type: "number"
+            format: "float"           
+          precision:
+            type: "number"
+            format: "float"            
+          recall:
+            type: "number"
+            format: "float" 
+      inGoldStandardButNotRetrieved:
+        type: "array"
+        items:
+          type: "integer"
+      countSuggestedArticles:
+        type: "integer"
+      suggestedArticles:
+        type: "object"
+        properties:
+          article:
+            type: "object"
+            properties:
+              pmid: 
+                type: "integer"
+              score:
+                type: "integer"
+              userAssertion: 
+                type: "integer"
+              citation:
+                type: "object"
+                properties:
+                  pubDate:
+                    type: "object"
+                    properties:
+                      year:
+                        type: "string"           
+                      month: 
+                        type: "string"         
+                      day:
+                        type: "string"         
+                  journal:
+                    type: "object"
+                    properties:
+                      journalTitleVerbose: 
+                        type: "string"
+                      journalTitleISOabbreviation:
+                        type: "string"        
+                  articleTitle: 
+                    type: "string"
+                  authorList:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        author:
+                          type: "object"
+                          properties:
+                            rank: 
+                              type: "integer"
+                            lastName:
+                              type: "string"          
+                            firstName: 
+                              type: "string"          
+                            initials: 
+                              type: "string"          
+                            affiliation:
+                              type: "object"
+                              properties:
+                                affiliationPubMed: 
+                                   type: "string" 
+                                affiliationScopus: 
+                                   type: "string" 
+                                affiliationIDScopus: 
+                                   type: "string"             
+                            targetAuthor: 
+                              type: "string"           
+                  volume: 
+                    type: "string"  
+                  issue: 
+                    type: "string"
+                  pages: 
+                    type: "string"  
+                  pmcid: 
+                    type: "string"  
+                  doi: 
+                    type: "string"  
+              positiveEvidence:
+                type: "object"
+                properties:
+                  evidenceAffiliation:
+                    type: "object"
+                    properties:
+                      institutionalAffiliation: 
+                        type: "string"
+                      email: 
+                        type: "string"
+                      department: 
+                        type: "string"
+                      articleAffiliation: 
+                        type: "string"          
+                  evidenceAuthorName:
+                    type: "object"
+                    properties:
+                      evidenceInstitutionalAuthorName: 
+                        type: "string"
+                      evidenceArticleAuthorName: 
+                        type: "string"
+                  evidenceGrant:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        grant:
+                          type: "object"
+                          properties:
+                            evidenceInstitutionGrant: 
+                              type: "string"
+                            evidenceArticleGrant: 
+                              type: "string"
+                  evidenceRelationship:
+                    type: "object"
+                    properties:
+                      relationship:
+                         type: "object"
+                         properties:
+                           relationshipName: 
+                            type: "string"
+                           relationshipType:  
+                            type: "string"
+                  evidenceYear:
+                    type: "object"
+                    properties:
+                      discrepancyDegreeYearBachelor:
+                        type: "integer"
+                      discrepancyDegreeYearTerminal:
+                        type: "integer"
+                  evidenceClustering:
+                    type: "object"
+                    properties:
+                      meshMajorClustering:
+                        type: "array"
+                        items:
+                          type: "integer"  
+                      journalClustering:
+                        type: "string"
+                      citesClustering:
+                        type: "array"
+                        items:
+                          type: "integer"  
+                      bibliographicCouplingClustering:
+                        type: "array"
+                        items:
+                          type: "integer"  
+                      citedByClustering:
+                        type: "array"
+                        items:
+                          type: "integer"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
